@@ -1,0 +1,6 @@
+<h2>BLOG Posts</h2>
+<% @posts.each{|post| %>
+  <p>==========================</p>
+  <p>Name: <%= post.name %></p>
+  <p>Content: <%= post.content %></p>
+<% } %>

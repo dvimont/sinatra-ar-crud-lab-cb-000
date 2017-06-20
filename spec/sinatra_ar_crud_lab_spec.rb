@@ -9,13 +9,13 @@ describe "Blog Post App" do
     @post2 = Post.create(:name => "second post", :content => "i'm a really good blogger")
   end
 
-  describe "Create Action" do 
+  describe "Create Action" do
 
     it "creates a new blog post" do
       visit '/posts/new'
 
-      fill_in :name, :with => "my favorite blog post"
-      fill_in :content, :with => "blogging!!!!"
+      fill_in "post[name]", :with => "my favorite blog post"
+      fill_in "post[content]", :with => "blogging!!!!"
 
       click_button 'submit'
 
@@ -26,8 +26,8 @@ describe "Blog Post App" do
     it "redirects to '/posts'" do
       visit '/posts/new'
 
-      fill_in :name, :with => "a post"
-      fill_in :content, :with => "blog blog blog blog blog"
+      fill_in "post[name]", :with => "a post"
+      fill_in "post[content]", :with => "blog blog blog blog blog"
 
       click_button 'submit'
 
@@ -38,7 +38,7 @@ describe "Blog Post App" do
   end
 
   describe "Read Action " do
-    describe 'index action' do 
+    describe 'index action' do
       it 'responds with a 200 status code' do
         get "/posts"
         expect(last_response.status).to eq(200)
@@ -51,7 +51,7 @@ describe "Blog Post App" do
       end
     end
 
-    describe 'show action' do 
+    describe 'show action' do
       it 'show page responds with a 200 status code' do
         get "/posts/#{@post1.id}"
         expect(last_response.status).to eq(200)
@@ -68,7 +68,7 @@ describe "Blog Post App" do
       end
     end
 
-   
+
   end
 
 
@@ -80,7 +80,7 @@ describe "Blog Post App" do
       expect(last_response.status).to eq(200)
     end
 
-    it 'displays the existing object in the edit form' do 
+    it 'displays the existing object in the edit form' do
       visit "/posts/#{@post2.id}/edit"
       expect(page.body).to include("#{@post2.name}")
       expect(page.body).to include("#{@post2.content}")
@@ -89,8 +89,8 @@ describe "Blog Post App" do
 
     it "saves edits to a blog post" do
       visit "/posts/#{@post2.id}/edit"
-      fill_in :name, :with => "Second Post!!"
-      fill_in :content, :with => "this is the best blog post ever written"
+      fill_in "post[name]", :with => "Second Post!!"
+      fill_in "post[content]", :with => "this is the best blog post ever written"
 
       click_button 'submit'
       expect(Post.all.count).to eq(2)
@@ -99,7 +99,7 @@ describe "Blog Post App" do
 
     it "redirects to '/posts/:id'" do
       visit "/posts/#{@post2.id}/edit"
-      fill_in :content, :with => "this is even better than the last"
+      fill_in "post[content]", :with => "this is even better than the last"
 
       click_button 'submit'
       expect(page.current_path).to eq("/posts/#{@post2.id}")
@@ -141,9 +141,9 @@ describe "Blog Post App" do
 
   end
 
-  
 
 
 
-    
+
+
 end
